@@ -173,7 +173,12 @@ module.exports = async (req, res) => {
             font-weight: 600; 
             line-height: 1.5; 
             margin-bottom: 12px; 
-            color: #1d1d1f;
+            color: #007aff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .bid-title:hover {
+            text-decoration: underline;
         }
         
         .bid-company {
@@ -355,7 +360,7 @@ module.exports = async (req, res) => {
                         <span class="source-tag source-\${bid.source}">\${bid.source_name}</span>
                         <span class="type-tag">\${bid.type}</span>
                     </div>
-                    <div class="bid-title">\${bid.title}</div>
+                    <a class="bid-title" href="https://etp.faw.cn/" target="_blank" style="color:#007aff;text-decoration:none;display:block;">\${bid.title}</a>
                     <div class="bid-company">\${bid.company}</div>
                     <div class="bid-footer">
                         <span class="deadline">⏰ 截止: \${bid.deadline}</span>
