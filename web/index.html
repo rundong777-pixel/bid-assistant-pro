@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招标助手 Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+        }
+        
+        .header {
+            background: #007aff;
+            color: white;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .bid-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .bid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .source-tag {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .source-faw { background: #ffebee; color: #c62828; }
+        .source-dongfeng { background: #e3f2fd; color: #1565c0; }
+        .source-leapmotor { background: #e8f5e9; color: #2e7d32; }
+        
+        .date {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .bid-title {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+        
+        .bid-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .deadline {
+            font-size: 13px;
+            color: #ff9500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .status-tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active { background: #e8f5e9; color: #2e7d32; }
+        .status-ended { background: #f5f5f5; color: #666; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #007aff;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,122,255,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .refresh-btn:hover {
+            background: #0056b3;
+        }
+        
+        .refresh-btn.spinning {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .nav-tab.active {
+            background: #007aff;
+            color: white;
+        }
+        
+        .nav-tab:not(.active) {
+            color: #666;
+        }
+        
+        .nav-tab:not(.active):hover {
+            background: #f5f5f7;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>招标助手 Pro</h1>
+    </div>
+    
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="switchTab('all')">全部</div>
+            <div class="nav-tab" onclick="switchTab('faw')">一汽</div>
+            <div class="nav-tab" onclick="switchTab('dongfeng')">东风</div>
+            <div class="nav-tab" onclick="switchTab('leapmotor')">零跑</div>
+        </div>
+        
+        <div id="content">
+            <div class="loading">加载中...</div>
+        </div>
+    </div>
+    
+    <button class="refresh-btn" onclick="fetchBids()" id="refreshBtn">↻</button>
+    
+    <script>
+        let currentFilter = 'all';
+        let allBids = [];
+        
+        async function fetchBids() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('spinning');
+            
+            try {
+                const response = await fetch('https://bid-assistant-pro.vercel.app/api/bids');
+                const data = await response.json();
+                
+                if (data.success) {
+                    allBids = data.data;
+                    renderBids();
+                } else {
+                    showError('加载失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            } finally {
+                btn.classList.remove('spinning');
+            }
+        }
+        
+        function renderBids() {
+            const content = document.getElementById('content');
+            
+            let bids = allBids;
+            if (currentFilter !== 'all') {
+                bids = allBids.filter(bid => bid.source === currentFilter);
+            }
+            
+            if (bids.length === 0) {
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <p>暂无招标信息</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            content.innerHTML = bids.map(bid => `
+                <div class="bid-card">
+                    <div class="bid-header">
+                        <span class="source-tag source-${bid.source}">${bid.source_name}</span>
+                        <span class="date">${bid.publish_date}</span>
+                    </div>
+                    <div class="bid-title">${bid.title}</div>
+                    <div class="bid-footer">
+                        <span class="deadline">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            截止: ${bid.deadline}
+                        </span>
+                        <span class="status-tag status-${bid.status}">${bid.status === 'active' ? '进行中' : '已结束'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function showError(message) {
+            document.getElementById('content').innerHTML = `
+                <div class="error">${message}</div>
+            `;
+        }
+        
+        function switchTab(filter) {
+            currentFilter = filter;
+            
+            // 更新标签样式
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderBids();
+        }
+        
+        // 页面加载时获取数据
+        fetchBids();
+    </script>
+</body>
+</html>
