@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     });
   }
   
-  // 招标列表（模拟数据）
+  // 招标列表
   if (path === '/api/bids') {
     return res.status(200).json({
       success: true,
@@ -34,13 +34,62 @@ module.exports = async (req, res) => {
     });
   }
   
+  // 网页版
+  if (path === '/web' || path.startsWith('/web/')) {
+    return res.status(200).send(`
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招标助手 Pro</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, sans-serif; background: #f5f5f7; }
+        .header { background: #007aff; color: white; padding: 16px 20px; }
+        .header h1 { font-size: 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .bid-card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+        .source-tag { padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+        .source-faw { background: #ffebee; color: #c62828; }
+        .source-dongfeng { background: #e3f2fd; color: #1565c0; }
+        .source-leapmotor { background: #e8f5e9; color: #2e7d32; }
+        .bid-title { font-size: 16px; font-weight: 500; margin: 12px 0; }
+        .bid-footer { display: flex; justify-content: space-between; color: #666; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="header"><h1>招标助手 Pro</h1></div>
+    <div class="container" id="content"></div>
+    <script>
+        fetch('/api/bids')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('content').innerHTML = data.data.map(bid => \`
+                    <div class="bid-card">
+                        <span class="source-tag source-\${bid.source}">\${bid.source_name}</span>
+                        <div class="bid-title">\${bid.title}</div>
+                        <div class="bid-footer">
+                            <span>发布: \${bid.publish_date}</span>
+                            <span>截止: \${bid.deadline}</span>
+                        </div>
+                    </div>
+                \`).join('');
+            });
+    </script>
+</body>
+</html>
+    `);
+  }
+  
   // 默认响应
   return res.status(200).json({
     name: '招标助手 Pro API',
     version: '1.0.0',
     endpoints: [
       '/ - 健康检查',
-      '/api/bids - 招标列表'
+      '/api/bids - 招标列表',
+      '/web - 网页版'
     ]
   });
 };
