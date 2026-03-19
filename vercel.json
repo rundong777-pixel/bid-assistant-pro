@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "bid-assistant-pro",
+  "builds": [
+    {
+      "src": "backend/src/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/src/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "backend/src/index.js"
+    }
+  ],
+  "env": {
+    "DB_HOST": "@db_host",
+    "DB_PORT": "@db_port",
+    "DB_NAME": "@db_name",
+    "DB_USER": "@db_user",
+    "DB_PASSWORD": "@db_password",
+    "OPENAI_API_KEY": "@openai_api_key"
+  }
+}
