@@ -1,15 +1,3 @@
-const { Pool } = require('pg');
-
-// 数据库连接池
-const pool = new Pool({
-  host: process.env.DB_HOST || 'db.bnpjqjngfyuhluvnywbz.supabase.co',
-  port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || 'postgres',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD,
-  ssl: { rejectUnauthorized: false }
-});
-
 module.exports = async (req, res) => {
   // 设置 CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,47 +10,37 @@ module.exports = async (req, res) => {
   
   const path = req.url.split('?')[0];
   
-  try {
-    // 健康检查
-    if (path === '/' || path === '/health') {
-      const dbResult = await pool.query('SELECT NOW() as time');
-      return res.status(200).json({
-        status: 'ok',
-        message: '招标助手 Pro API 运行正常',
-        timestamp: new Date().toISOString(),
-        database: 'connected',
-        dbTime: dbResult.rows[0].time
-      });
-    }
-    
-    // 获取招标列表
-    if (path === '/api/bids') {
-      const result = await pool.query(
-        'SELECT * FROM bids ORDER BY publish_date DESC LIMIT 20'
-      );
-      return res.status(200).json({
-        success: true,
-        count: result.rows.length,
-        data: result.rows
-      });
-    }
-    
-    // 默认响应
+  // 健康检查
+  if (path === '/' || path === '/health') {
     return res.status(200).json({
-      name: '招标助手 Pro API',
-      version: '1.0.0',
-      endpoints: [
-        '/ - 健康检查',
-        '/api/bids - 招标列表'
-      ]
-    });
-    
-  } catch (error) {
-    console.error('API Error:', error);
-    return res.status(500).json({
-      status: 'error',
-      message: error.message,
-      timestamp: new Date().toISOString()
+      status: 'ok',
+      message: '招标助手 Pro API 运行正常',
+      timestamp: new Date().toISOString(),
+      version: '1.0.0'
     });
   }
+  
+  // 招标列表（模拟数据）
+  if (path === '/api/bids') {
+    return res.status(200).json({
+      success: true,
+      count: 4,
+      data: [
+        { id: 1, source: 'faw', source_name: '一汽', title: '2026年奔腾海湾认证服务项目', publish_date: '2026-03-18', deadline: '2026-04-18', status: 'active' },
+        { id: 2, source: 'faw', source_name: '一汽', title: '2026年奔腾欧标认证服务项目', publish_date: '2026-03-18', deadline: '2026-04-18', status: 'active' },
+        { id: 3, source: 'dongfeng', source_name: '东风', title: '东风奕派2026-2027年区域新媒体运营项目', publish_date: '2026-03-18', deadline: '2026-03-23', status: 'active' },
+        { id: 4, source: 'leapmotor', source_name: '零跑', title: '2026年度零跑汽车海外市场营销代理招标公告', publish_date: '2026-03-18', deadline: '2026-03-31', status: 'active' }
+      ]
+    });
+  }
+  
+  // 默认响应
+  return res.status(200).json({
+    name: '招标助手 Pro API',
+    version: '1.0.0',
+    endpoints: [
+      '/ - 健康检查',
+      '/api/bids - 招标列表'
+    ]
+  });
 };
