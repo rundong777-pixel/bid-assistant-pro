@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0f0f0; }
+#canvas { display: none; }
+#download { margin-top: 20px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; }
+</style>
+</head>
+<body>
+<canvas id="canvas" width="216" height="216"></canvas>
+<button id="download">下载 PNG 图标</button>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// 渐变背景
+const gradient = ctx.createLinearGradient(0, 0, 216, 216);
+gradient.addColorStop(0, '#667eea');
+gradient.addColorStop(1, '#764ba2');
+
+// 圆角矩形
+ctx.fillStyle = gradient;
+ctx.beginPath();
+ctx.roundRect(0, 0, 216, 216, 40);
+ctx.fill();
+
+// 文字
+ctx.fillStyle = 'white';
+ctx.font = 'bold 120px Arial';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText('招', 108, 125);
+
+// 下载按钮
+document.getElementById('download').onclick = function() {
+    const link = document.createElement('a');
+    link.download = 'app-icon-216.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+};
+</script>
+</body>
+</html>
