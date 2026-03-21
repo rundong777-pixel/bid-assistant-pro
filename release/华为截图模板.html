@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招标助手 Pro - 华为截图模板（450x800）</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .screenshot {
+            width: 450px;
+            height: 800px;
+            background: white;
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        .status-bar {
+            height: 36px;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            color: white;
+            font-size: 12px;
+        }
+        .header {
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 12px;
+            height: calc(100% - 84px);
+            overflow-y: auto;
+        }
+        .bid-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .bid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .source-tag {
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .source-leapmotor { background: #e8f5e9; color: #2e7d32; }
+        .source-faw { background: #ffebee; color: #c62828; }
+        .source-dongfeng { background: #e3f2fd; color: #1565c0; }
+        .bid-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+        .bid-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #666;
+        }
+        .deadline {
+            color: #ff9800;
+        }
+        .status {
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+        .status-active { background: #e8f5e9; color: #2e7d32; }
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #999;
+        }
+        .nav-item.active {
+            color: #667eea;
+        }
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 1px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px 16px;
+            color: #999;
+        }
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .filter-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 16px auto;
+            display: block;
+        }
+        .info-section {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        .info-title {
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 13px;
+        }
+        .info-content {
+            color: #666;
+            font-size: 12px;
+        }
+        .save-tip {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 20px 0;
+            text-align: center;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>招标助手 Pro - 华为截图模板</h1>
+        <p class="subtitle">尺寸：450x800 像素 | 需要 3-5 张截图</p>
+        
+        <div class="save-tip">
+            💡 截图方法：按 F12 打开开发者工具 → 点击设备图标 → 选择 "Edit" → 添加 450x800 尺寸 → 截图保存
+        </div>
+
+        <!-- 截图1: 首页 -->
+        <div class="screenshot" id="screenshot1">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>📶 5G 🔋</span>
+            </div>
+            <div class="header">招标助手 Pro</div>
+            <div class="content">
+                <div class="bid-card">
+                    <div class="bid-header">
+                        <span class="source-tag source-leapmotor">零跑</span>
+                        <span style="font-size: 11px; color: #999;">2026-03-20</span>
+                    </div>
+                    <div class="bid-title">2026年度营销活动策划服务采购项目</div>
+                    <div class="bid-footer">
+                        <span class="deadline">截止: 2026-04-20</span>
+                        <span class="status status-active">进行中</span>
+                    </div>
+                </div>
+                <div class="bid-card">
+                    <div class="bid-header">
+                        <span class="source-tag source-faw">一汽</span>
+                        <span style="font-size: 11px; color: #999;">2026-03-19</span>
+                    </div>
+                    <div class="bid-title">新能源汽车电池供应商招标公告</div>
+                    <div class="bid-footer">
+                        <span class="deadline">截止: 2026-04-15</span>
+                        <span class="status status-active">进行中</span>
+                    </div>
+                </div>
+                <div class="bid-card">
+                    <div class="bid-header">
+                        <span class="source-tag source-dongfeng">东风</span>
+                        <span style="font-size: 11px; color: #999;">2026-03-18</span>
+                    </div>
+                    <div class="bid-title">智能驾驶系统研发项目合作招标</div>
+                    <div class="bid-footer">
+                        <span class="deadline">截止: 2026-04-10</span>
+                        <span class="status status-active">进行中</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item active">
+                    <div class="nav-icon">🏠</div>
+                    <span>首页</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">🔍</div>
+                    <span>筛选</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">⭐</div>
+                    <span>收藏</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">👤</div>
+                    <span>我的</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 截图2: 筛选页 -->
+        <div class="screenshot" id="screenshot2">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>📶 5G 🔋</span>
+            </div>
+            <div class="header">智能筛选</div>
+            <div class="content">
+                <div class="info-section">
+                    <div class="info-title">关键词筛选</div>
+                    <div class="info-content">新能源、电池、智能驾驶、营销活动...</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-title">平台来源</div>
+                    <div class="info-content">✓ 一汽  ✓ 东风  ✓ 零跑</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-title">地区筛选</div>
+                    <div class="info-content">北京、上海、广州、深圳、杭州...</div>
+                </div>
+                <button class="filter-btn">应用筛选条件</button>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <div class="nav-icon">🏠</div>
+                    <span>首页</span>
+                </div>
+                <div class="nav-item active">
+                    <div class="nav-icon">🔍</div>
+                    <span>筛选</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">⭐</div>
+                    <span>收藏</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">👤</div>
+                    <span>我的</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 截图3: 个人中心 -->
+        <div class="screenshot" id="screenshot3">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>📶 5G 🔋</span>
+            </div>
+            <div class="header">个人中心</div>
+            <div class="content">
+                <div class="info-section">
+                    <div class="info-title">当前套餐</div>
+                    <div class="info-content" style="display: flex; justify-content: space-between;">
+                        <span>免费版</span>
+                        <span style="color: #667eea;">升级专业版 →</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <div class="info-title">推送设置</div>
+                    <div class="info-content">已开启招标信息推送通知</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-title">关键词设置</div>
+                    <div class="info-content">新能源、电池、智能驾驶</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-title">关于</div>
+                    <div class="info-content">版本 1.0.0 | 招标助手 Pro</div>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <div class="nav-icon">🏠</div>
+                    <span>首页</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">🔍</div>
+                    <span>筛选</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">⭐</div>
+                    <span>收藏</span>
+                </div>
+                <div class="nav-item active">
+                    <div class="nav-icon">👤</div>
+                    <span>我的</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
