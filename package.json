@@ -1,0 +1,24 @@
+{
+  "name": "bid-assistant-pro",
+  "version": "1.0.0",
+  "description": "招标助手 Pro - 专业招标信息监控与分析工具",
+  "main": "api/health.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "fetch": "node backend/scripts/fetch-bids.js"
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "playwright-core": "^1.40.0",
+    "cheerio": "^1.0.0-rc.12",
+    "node-cron": "^3.0.3",
+    "redis": "^4.6.10"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

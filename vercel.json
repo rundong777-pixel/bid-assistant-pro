@@ -3,14 +3,34 @@
   "name": "bid-assistant-pro",
   "builds": [
     {
-      "src": "api/index.js",
+      "src": "api/*.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/api/bids",
+      "dest": "api/bids.js"
+    },
+    {
+      "src": "/api/bid",
+      "dest": "api/bid.js"
+    },
+    {
+      "src": "/api/health",
+      "dest": "api/health.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "api/index.js"
+      "dest": "api/health.js"
     }
-  ]
+  ],
+  "env": {
+    "DB_HOST": "@db_host",
+    "DB_PORT": "@db_port",
+    "DB_NAME": "@db_name",
+    "DB_USER": "@db_user",
+    "DB_PASSWORD": "@db_password",
+    "DB_SSL": "true"
+  }
 }
