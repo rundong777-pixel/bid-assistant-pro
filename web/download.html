@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载招标助手 Pro</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .version {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .download-btn {
+            display: block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .info {
+            text-align: left;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        .info h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .info ul {
+            list-style: none;
+            color: #666;
+        }
+        .info li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .info li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .qr-code {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        .qr-code p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: white;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ccc;
+            color: #999;
+            font-size: 12px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #999;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        /* 手机提示 */
+        .mobile-tip {
+            display: none;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #856404;
+        }
+        @media (max-width: 600px) {
+            .mobile-tip {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-icon">📋</div>
+        <h1>招标助手 Pro</h1>
+        <p class="version">版本 1.0.0 | Android</p>
+        
+        <div class="mobile-tip">
+            💡 点击下载按钮后，请在浏览器中打开下载的 APK 文件进行安装
+        </div>
+        
+        <a href="bid-assistant-pro-v1.0.0.apk" class="download-btn" download>
+            立即下载
+        </a>
+        
+        <div class="info">
+            <h3>应用功能</h3>
+            <ul>
+                <li>实时监控一汽、东风、零跑招标</li>
+                <li>智能筛选匹配项目</li>
+                <li>AI 投标分析建议</li>
+                <li>第一时间推送通知</li>
+                <li>收藏管理招标信息</li>
+            </ul>
+        </div>
+        
+        <div class="qr-code">
+            <p>扫描二维码下载</p>
+            <div class="qr-placeholder">
+                二维码<br>（部署后生成）
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>下载即表示同意 <a href="terms.html">服务条款</a> 和 <a href="privacy.html">隐私政策</a></p>
+            <p style="margin-top: 10px;">© 2026 招标助手 Pro</p>
+        </div>
+    </div>
+</body>
+</html>
